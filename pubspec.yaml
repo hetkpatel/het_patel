@@ -1,0 +1,29 @@
+name: het_patel
+description: "Portfolio website for Het Patel."
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  google_fonts: ^6.1.0
+  avatar_glow: ^3.0.1
+  font_awesome_flutter: ^10.6.0
+  url_launcher: ^6.2.3
+  clipboard: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - fonts/

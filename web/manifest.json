@@ -1,0 +1,11 @@
+{
+    "name": "Het Patel",
+    "short_name": "Het Patel",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#000",
+    "theme_color": "#0175C2",
+    "description": "Portfolio website for Het Patel.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false
+}
