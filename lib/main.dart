@@ -458,7 +458,7 @@ class _LaptopViewState extends State<LaptopView> {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              'I like working with data, AI, and Business Intelligence | Bridging Tech and Business | Entrepreneurial Spirit',
+                              'I like working with data, AI, and Business Intelligence | Bridging Technology and Business | Entrepreneurial Spirit',
                               style: GoogleFonts.robotoMono(
                                 fontSize: 14,
                                 color: const Color(0xFF6b7280),
@@ -820,6 +820,7 @@ class _LaptopViewState extends State<LaptopView> {
                             )
                           : ListView(
                               shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               children: _projects
                                   .map(
                                     (e) => Container(
@@ -925,6 +926,15 @@ class _LaptopViewState extends State<LaptopView> {
                     ],
                   ),
                 ),
+                // FOOTER
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: Center(
+                      child: Text(
+                    'Last Updated: 01.22.2024',
+                    style: GoogleFonts.robotoMono(fontSize: 12),
+                  )),
+                )
               ],
             ),
           ),
