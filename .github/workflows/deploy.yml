@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          channel: 'stable'
+      
+      - name: Setup Flutter
+        run: |
+          flutter config --enable-web
+
+      - name: Build web
+        run: |
+          flutter pub get
+          flutter build web
+
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
