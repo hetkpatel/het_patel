@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +97,32 @@ class _LaptopViewState extends State<LaptopView> {
       ],
     ),
   ];
-  final List<bool> _showUnderline = [false, false, false, false, false];
+  final List<bool> _showUnderline_projects = [
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
+  final List<_Article> _articles = [
+    _Article(
+      title: "Selling on Amazon: my takeaways from the experience",
+      publishedDate: "Jan 31, 2024",
+      readTime: 5,
+      subtitle:
+          'Three years in the Amazon game, and the ride has been nothing short of enlightening! From day one to the present, each step has been a lesson in growth and opportunity.',
+      link:
+          'https://www.linkedin.com/pulse/selling-amazon-my-takeaways-from-experience-het-patel-tylfc%3FtrackingId=54HH3KlARl6LBCFTNVwwag%253D%253D/?trackingId=54HH3KlARl6LBCFTNVwwag%3D%3D',
+      tags: [
+        ('Entrepreneurship', ''),
+        ('E-Commerce', ''),
+        ('Business Analytics', ''),
+        ('Side Hustle', ''),
+        ('Growth Mindset', ''),
+      ],
+    )
+  ];
 
   Widget _buildEducation({
     required String school,
@@ -714,15 +740,15 @@ class _LaptopViewState extends State<LaptopView> {
                                             onEnter: (_) {
                                               if (e.link.isNotEmpty) {
                                                 setState(() =>
-                                                    _showUnderline[e.index] =
-                                                        true);
+                                                    _showUnderline_projects[
+                                                        e.index] = true);
                                               }
                                             },
                                             onExit: (_) {
                                               if (e.link.isNotEmpty) {
                                                 setState(() =>
-                                                    _showUnderline[e.index] =
-                                                        false);
+                                                    _showUnderline_projects[
+                                                        e.index] = false);
                                               }
                                             },
                                             child: GestureDetector(
@@ -740,7 +766,7 @@ class _LaptopViewState extends State<LaptopView> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       decoration:
-                                                          _showUnderline[
+                                                          _showUnderline_projects[
                                                                   e.index]
                                                               ? TextDecoration
                                                                   .underline
@@ -926,12 +952,128 @@ class _LaptopViewState extends State<LaptopView> {
                     ],
                   ),
                 ),
+                // ARTICLES
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 32.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Articles',
+                        style: GoogleFonts.inter(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: _articles
+                            .map(
+                              (e) => Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                ),
+                                padding: const EdgeInsets.all(12.0),
+                                margin: const EdgeInsets.only(bottom: 12.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MouseRegion(
+                                      cursor: e.link.isNotEmpty
+                                          ? SystemMouseCursors.click
+                                          : MouseCursor.defer,
+                                      child: GestureDetector(
+                                        onTapUp: (_) => _launchUrl(e.link),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text: e.title,
+                                            children: [
+                                              TextSpan(
+                                                text: ' • ${e.publishedDate}',
+                                                style: GoogleFonts.robotoMono(
+                                                  fontSize: 12,
+                                                  color:
+                                                      const Color(0xFF6B7280),
+                                                  fontWeight: FontWeight.normal,
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                ),
+                                              ),
+                                            ],
+                                            style: GoogleFonts.inter(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                decoration:
+                                                    TextDecoration.underline),
+                                            // ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: '${e.readTime} min read',
+                                        children: [
+                                          TextSpan(
+                                            text: ' • ${e.subtitle}',
+                                            style: GoogleFonts.robotoMono(
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
+                                        style: GoogleFonts.robotoMono(
+                                          fontSize: 12,
+                                          color: const Color(0xFF6B7280),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Wrap(
+                                      spacing: 8,
+                                      runSpacing: 4,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      runAlignment: WrapAlignment.end,
+                                      children: e.tags
+                                          .map(
+                                            (e) => Tooltip(
+                                              message: e.$2,
+                                              child: Chip(
+                                                label: Text(
+                                                  e.$1,
+                                                  style: GoogleFonts.robotoMono(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.all(0),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
                 // FOOTER
                 Padding(
                   padding: const EdgeInsets.only(top: 32.0),
                   child: Center(
                       child: Text(
-                    'Last Updated: 01.22.2024',
+                    'Last Updated: 01.31.2024',
                     style: GoogleFonts.robotoMono(fontSize: 12),
                   )),
                 )
@@ -956,6 +1098,21 @@ class _Project {
     required this.subtitle,
     required this.link,
     required this.live,
+    required this.tags,
+  });
+}
+
+class _Article {
+  int readTime;
+  String title, subtitle, publishedDate, link;
+  List<(String, String)> tags;
+
+  _Article({
+    required this.title,
+    required this.subtitle,
+    required this.publishedDate,
+    required this.readTime,
+    required this.link,
     required this.tags,
   });
 }
